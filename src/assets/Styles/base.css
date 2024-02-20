@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('@mdi/font/css/materialdesignicons.css');
+
+/* Light theme */
+:root {
+    /* Colors */
+
+    /* blue-grey-darken-4 */
+    --text-color: #263238;
+
+    /* grey-lighten-5 */
+    --primary-background-color: #FAFAFA;
+
+    /* blue-grey-lighten-5 */
+    --secondary-background-color: #ECEFF1;
+
+    /* indigo-accent-1 */
+    --primary-accent-color: #8F8FF4;
+
+    /* green-lighten-1 */
+    --secondary-accent-color: #66BB6A;
+
+    /* yellow */
+    --tertiary-accent-color: #ffeb3b;
+
+    /* Fonts */
+    --primary-font: "Lato", sans-serif;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+    --text-color: #FAFAFA;
+    --primary-background-color: #263238;
+    --secondary-background-color: #37474F;
+}
