@@ -18,5 +18,5 @@ watch(projectDescription, (newDescription) => {
 
 <template>
     <v-text-field v-model="projectName" label="Project name*" variant="underlined"></v-text-field>
-    <v-text-field v-model="projectDescription" label="Project description" variant="underlined"></v-text-field>
+    <v-textarea v-model="projectDescription" label="Project description" variant="underlined"></v-textarea>
 </template>

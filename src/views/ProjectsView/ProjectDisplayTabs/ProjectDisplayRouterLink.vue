@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import useClientManagerStore from '@/stores/clientManagerStore/clientManagerStore';
-import { computed } from 'vue';
 
 const clientManager = useClientManagerStore()
 
@@ -8,12 +7,9 @@ const props = defineProps({
     project: {type: Object, required: true}
 })
 
-const { name, clientID, projectID } = props.project
+const { projectName, clientID, projectID } = props.project
 
-const clientName = computed(() => {
-    const clientObject = clientManager.getClientByID(clientID)
-    return clientObject?.name
-})
+const clientName = clientManager.getClientNameByID(clientID)
 
 </script>
 
@@ -21,7 +17,7 @@ const clientName = computed(() => {
     <div class="container-router-link container">
     <RouterLink class="router-link" :to="`/projects/${projectID}`">
         <div class="text-wrapper">
-            <h2 class="heading-medium project-name">{{ name }}</h2>
+            <h2 class="heading-medium project-name">{{ projectName }}</h2>
             <p class="company-name heading-small">{{ clientName }}</p>
         </div>
         <span class="mdi mdi-chevron-right"></span>

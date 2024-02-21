@@ -35,8 +35,14 @@ body {
 }
 
 .heading-small {
-    text-transform: capitalize;
-    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.divider {
+    color: var(--text-color);
+    margin-bottom: 1rem;
 }
 
 @media (width >= 1200px) {

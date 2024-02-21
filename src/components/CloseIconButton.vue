@@ -13,7 +13,7 @@
 <style scoped>
     button {
         height: 100%;
-        color: lightgray;
+        color: var(--tertiary-background-color);
         transition: 0.3s ease-in-out;
     }
 

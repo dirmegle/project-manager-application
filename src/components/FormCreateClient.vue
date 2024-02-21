@@ -2,13 +2,16 @@
 import BaseButton from '@/components/BaseButton.vue';
 import AlertMessage from '@/components/AlertMessage.vue'
 import useClientManagerStore from '@/stores/clientManagerStore/clientManagerStore'
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 const clientManager = useClientManagerStore()
 const name = ref('')
 const description = ref('')
-const logo = ref('')
 const notes = ref('')
+const logo = ref('')
+const isLogoURLValid = ref(false)
+
+const showURLIncorrectAlert = ref(false)
 const showSuccessAlert = ref(false)
 const showErrorAlert = ref(false)
 
@@ -18,13 +21,21 @@ function isNameExisting(nameToCheck: string) {
     return clientManager.arrayOfClientNames.includes(nameToCheck)
 }
 
+function isURLValid(stringToCheck:string) {
+    // Regular expression for URL validation
+    // Source: https://bhomaramjangid.medium.com/how-to-validate-url-using-regular-expression-in-javascript-db0afcd12efd
+    const urlRegex = /^(?:(?:https?|ftp):\/\/)?(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+[^\s]*$/i
+    return urlRegex.test(stringToCheck)
+}
+
 function handleClientAddition() {
     if (!isNameExisting(name.value)) {
-        clientManager.addNewClient(name.value, description.value, logo.value, notes.value)
+        clientManager.addNewClient(name.value, description.value, notes.value, logo.value, isLogoURLValid.value)
         name.value = '';
         description.value = '';
         logo.value = '';
         notes.value = '';
+        showURLIncorrectAlert.value = false
         showSuccessAlert.value = true
         setTimeout(() => {
             showSuccessAlert.value = false
@@ -36,6 +47,14 @@ function handleClientAddition() {
         }, 7000)
     }
 }
+
+watch(logo, (newURL) => {
+    isLogoURLValid.value = isURLValid(newURL);
+    if (!isLogoURLValid.value) {
+        showURLIncorrectAlert.value = true
+    }
+});
+
 </script>
 
 <template>
@@ -44,6 +63,7 @@ function handleClientAddition() {
         <v-text-field v-model="description" label="Client description" variant="underlined"></v-text-field>
         <v-text-field v-model="logo" label="Logo URL" variant="underlined"></v-text-field>
     </div>
+    <AlertMessage v-if="showURLIncorrectAlert" color="red-lighten-1" icon="$error" title="Provided URL is incorrect"/>
     <v-textarea v-model="notes" rows="3" label="Notes" variant="underlined"></v-textarea>
 
     <AlertMessage v-if="showSuccessAlert" color="green-lighten-1" icon="$success" title="Success">Client has been added and now appears in the list in the "CHOOSE CLIENT" tab.</AlertMessage>
@@ -67,6 +87,10 @@ function handleClientAddition() {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: 15px;
+    }
+
+    .heading-small {
+        width: 99%;
     }
 
     @media (width < 768px) {

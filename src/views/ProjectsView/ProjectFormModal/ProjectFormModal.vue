@@ -121,11 +121,6 @@ function handleProjectAddition() {
     justify-content: space-between;
 }
 
-.divider {
-    color: var(--text-color);
-    margin: 1rem 0;
-}
-
 .tabs .v-tab {
     color: var(--text-color);
     font-family: var(--primary-font);

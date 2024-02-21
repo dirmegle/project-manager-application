@@ -5,10 +5,11 @@ import { computed } from 'vue'
 
 export type Client = {
     clientID: string;
-    name: string;
-    description: string;
-    notes: string;
-    logo: string;
+    clientName: string;
+    clientDescription: string;
+    clientNotes: string;
+    clientLogo: string;
+    isLogoURLValid: boolean
 }
 
 const useClientManagerStore = defineStore('clientManager', () => {
@@ -25,31 +26,40 @@ const useClientManagerStore = defineStore('clientManager', () => {
         return clientObject
     }
 
-    const getClientIDByName = (name: string): string => {
-        const clientObject = clients.value.find(obj => obj.name === name);
+    const getClientNameByID = (clientID:string):string => {
+        const clientObject = getClientByID(clientID)
         if (!clientObject) {
-            throw new Error(`Client with name ${name} not found.`);
+            throw new Error(`Client with ID ${clientID} not found.`);
+        }
+        return clientObject.clientName
+    }
+
+    const getClientIDByName = (clientName: string): string => {
+        const clientObject = clients.value.find(obj => obj.clientName === clientName);
+        if (!clientObject) {
+            throw new Error(`Client with name ${clientName} not found.`);
         }
         return clientObject.clientID;
     }
 
     const arrayOfClientNames = computed(() => {
         const clientNames: string[] = []
-        clients.value.forEach((obj) => clientNames.push(obj.name))
+        clients.value.forEach((obj) => clientNames.push(obj.clientName))
         return clientNames
     })
 
     // Methods:
-    function addNewClient(name: string, description: string, notes:string, logo:string) {
+    function addNewClient(clientName: string, clientDescription: string, clientNotes:string, clientLogo:string, isLogoURLValid: boolean) {
 
         const clientID:string = uuidv4()
 
         const client: Client = {
             clientID,
-            name,
-            description,
-            notes,
-            logo,
+            clientName,
+            clientDescription,
+            clientNotes,
+            clientLogo,
+            isLogoURLValid
         }
 
         clients.value.push(client)
@@ -64,14 +74,14 @@ const useClientManagerStore = defineStore('clientManager', () => {
         const clientToBeEdited = getClientByID(clientID)
 
         if (clientToBeEdited) {
-            clientToBeEdited.name = newName
-            clientToBeEdited.description = newDescription
-            clientToBeEdited.notes = newNotes
-            clientToBeEdited.logo = newLogo
+            clientToBeEdited.clientName = newName
+            clientToBeEdited.clientDescription = newDescription
+            clientToBeEdited.clientNotes = newNotes
+            clientToBeEdited.clientLogo = newLogo
         } // TODO: Add error handling (here and in test)
     }
 
-    return { clients, getClientByID, getClientIDByName, arrayOfClientNames, addNewClient, createNewArrayWithoutClient, editClientInformation }
+    return { clients, getClientByID, getClientNameByID, getClientIDByName, arrayOfClientNames, addNewClient, createNewArrayWithoutClient, editClientInformation }
 })
 
 export default useClientManagerStore

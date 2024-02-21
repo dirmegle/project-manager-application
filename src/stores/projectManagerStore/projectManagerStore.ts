@@ -2,11 +2,11 @@ import { defineStore } from 'pinia';
 import { useStorage, type RemovableRef } from '@vueuse/core';
 import { v4 as uuidv4 } from 'uuid';
 
-type Project = {
+export type Project = {
     projectID: string;
     clientID: string;
-    name: string;
-    description: string;
+    projectName: string;
+    projectDescription: string;
     dateCreated: string;
     dateCompleted: string;
     completed: boolean
@@ -18,8 +18,12 @@ const useProjectManagerStore = defineStore('projectManager', () => {
     const projects: RemovableRef<Project[]> = useStorage<Project[]>('projects', []);
 
     // Getters:
-    const getProjectByID = (projectID: string) => {
-        return projects.value.find(obj => obj.projectID === projectID);
+    const getProjectByID = (projectID: string):Project => {
+        const projectObject = projects.value.find(obj => obj.projectID === projectID);
+        if (!projectObject) {
+            throw new Error(`Project with ID ${projectID} not found.`);
+        }
+        return projectObject
     }
 
     const currentDate: string = new Date().toISOString().slice(0, 10)
@@ -33,15 +37,15 @@ const useProjectManagerStore = defineStore('projectManager', () => {
     }
 
     // Methods:
-    function addNewProject(name: string, description: string, clientID:string):void {
+    function addNewProject(projectName: string, projectDescription: string, clientID:string):void {
 
         const projectID: string = uuidv4();
 
         const project: Project = {
             projectID,
             clientID,
-            name,
-            description,
+            projectName,
+            projectDescription,
             dateCreated: currentDate,
             dateCompleted: '',
             completed: false,
@@ -56,13 +60,12 @@ const useProjectManagerStore = defineStore('projectManager', () => {
 
     // Need to add method to remove all projects for client ID
 
-    function editProjectInformation(newName: string, newDescription: string, projectID: string) {
+    function editProjectDescription(newDescription: string, projectID: string) {
 
         const projectToBeEdited = getProjectByID(projectID)
 
         if (projectToBeEdited) {
-            projectToBeEdited.name = newName
-            projectToBeEdited.description = newDescription
+            projectToBeEdited.projectDescription = newDescription
         } // TODO: Add error handling (here and in test)
     }
 
@@ -78,7 +81,7 @@ const useProjectManagerStore = defineStore('projectManager', () => {
         return projects.value.filter(project => project.clientID === clientID)
     }
 
-    return { projects, addNewProject, createNewArrayWithoutProject, editProjectInformation, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus }
+    return { projects, getProjectByID, addNewProject, createNewArrayWithoutProject, editProjectDescription, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus }
 })
 
 export default useProjectManagerStore
