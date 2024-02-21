@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import '@mdi/font/css/materialdesignicons.css'
 import './assets/Styles/main.css'
 
