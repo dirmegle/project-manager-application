@@ -11,7 +11,6 @@ const props = defineProps({
 <template>
     <v-alert
     class="alert-message"
-    transition="v-fade-transition"
     closable
     :color="props.color"
     :icon="props.icon"

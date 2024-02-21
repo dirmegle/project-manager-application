@@ -17,8 +17,12 @@ const useClientManagerStore = defineStore('clientManager', () => {
     const clients: RemovableRef<Client[]> = useStorage<Client[]>('clients', []);
 
     // Getters:
-    const getClientByID = (clientID: string) => {
-        return clients.value.find(obj => obj.clientID === clientID);
+    const getClientByID = (clientID: string):Client => {
+        const clientObject = clients.value.find(obj => obj.clientID === clientID)
+        if (!clientObject) {
+            throw new Error(`Client with ID ${clientID} not found.`);
+        }
+        return clientObject
     }
 
     const getClientIDByName = (name: string): string => {
@@ -67,7 +71,7 @@ const useClientManagerStore = defineStore('clientManager', () => {
         } // TODO: Add error handling (here and in test)
     }
 
-    return { clients, getClientIDByName, arrayOfClientNames, addNewClient, createNewArrayWithoutClient, editClientInformation }
+    return { clients, getClientByID, getClientIDByName, arrayOfClientNames, addNewClient, createNewArrayWithoutClient, editClientInformation }
 })
 
 export default useClientManagerStore

@@ -24,6 +24,14 @@ const useProjectManagerStore = defineStore('projectManager', () => {
 
     const currentDate: string = new Date().toISOString().slice(0, 10)
 
+    const getFilteredProjectsByNotComplete = () => {
+        return projects.value.filter(project => !project.completed)
+    }
+
+    const getFilteredProjectsByComplete = () => {
+        return projects.value.filter(project => project.completed)
+    }
+
     // Methods:
     function addNewProject(name: string, description: string, clientID:string):void {
 
@@ -64,14 +72,6 @@ const useProjectManagerStore = defineStore('projectManager', () => {
         if(projectToBeEdited) {
             projectToBeEdited.completed = !projectToBeEdited.completed
         } // TODO: Add error handling (here and in test)
-    }
-
-    function getFilteredProjectsByNotComplete() {
-        return projects.value.filter(project => !project.completed)
-    }
-
-    function getFilteredProjectsByComplete() {
-        return projects.value.filter(project => project.completed)
     }
 
     function getFilteredProjectsByClientID(clientID: string) {
