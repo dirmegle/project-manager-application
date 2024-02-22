@@ -4,10 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 type LineItem = {
     itemID: string;
-    name: string;
+    itemName: string;
     unit: string;
     quantity: number;
-    price: number
+    price: number;
+    total: number;
 }
 
 type LineRecord = {
@@ -24,16 +25,17 @@ const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
 
     // Methods:
 
-    function addNewRecordForProject({ name, unit, quantity, price }: Omit<LineItem, 'itemID'>, projectID: string) {
+    function addNewRecordForProject({ itemName, unit, quantity, price, total }: Omit<LineItem, 'itemID'>, projectID: string) {
 
         const itemID: string = uuidv4()
 
         const newItemToAdd = {
             itemID,
-            name,
+            itemName,
             unit,
             quantity,
-            price
+            price,
+            total
         }
 
         if (!lineRecords.value[projectID]) {

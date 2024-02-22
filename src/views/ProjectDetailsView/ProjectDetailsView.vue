@@ -3,6 +3,7 @@ import { useRoute, useRouter } from 'vue-router';
 import useProjectManagerStore from '@/stores/projectManagerStore/projectManagerStore';
 import EditIconButton from '@/components/EditIconButton.vue'
 import CloseIconButton from '@/components/CloseIconButton.vue'
+import BaseButton from '@/components/BaseButton.vue'
 import useClientManagerStore from '@/stores/clientManagerStore/clientManagerStore';
 import ClientDisplayCard from '@/components/ClientDisplayCard.vue'
 import { ref } from 'vue';
@@ -34,6 +35,10 @@ function updateProjectDescription() {
     projectManager.editProjectDescription(projectDescription.value, projectID)
 }
 
+function markProjectAsCompleted() {
+    console.log('yes')
+}
+
 </script>
 
 <template>
@@ -52,7 +57,11 @@ function updateProjectDescription() {
         <h2 class="heading-medium">Project description:</h2>
         <v-textarea @change="updateProjectDescription" v-model="projectDescription" variant="underlined"></v-textarea>
         <h2 class="heading-medium">Line items</h2>
-        <LineItemsTable/>
+        <LineItemsTable :projectID="projectID"/>
+        <div class="button-container">
+            <BaseButton @buttonClicked="markProjectAsCompleted" buttonStyle="filled-green" :disabled="false">Mark project as completed</BaseButton>
+            <BaseButton @buttonClicked="handleClose" buttonStyle="filled" :disabled="false">Close</BaseButton>
+        </div>
     </div>
 </template>
 
@@ -87,5 +96,12 @@ function updateProjectDescription() {
 
 .heading-medium {
     margin-bottom: 10px;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
 }
 </style>

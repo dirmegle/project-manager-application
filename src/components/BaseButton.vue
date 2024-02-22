@@ -26,6 +26,18 @@ const handleClick = () => {
         font-weight: 700;
     }
 
+    .filled-green {
+        background-color: var(--secondary-accent-color);
+        color: #FBFBFB;
+        box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
+        border-radius: 7px;
+        font-weight: 700;
+    }
+
+    .filled-green:hover {
+        background-color: #5ba75f;
+    }
+
     .filled:hover {
         background-color: #7171d4;
     }
