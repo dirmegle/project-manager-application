@@ -92,24 +92,6 @@ function handleProjectAddition() {
 </template>
 
 <style scoped>
-.modal-overlay {
-    position: fixed;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    inset: 0;
-    background-color: #1d212f7f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    z-index: 2;
-    background-color: #FBFBFB;
-    display: flex;
-    justify-content: center;
-}
 
 .modal-content-wrapper {
         width: 95%;

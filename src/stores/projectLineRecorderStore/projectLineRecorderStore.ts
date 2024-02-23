@@ -21,7 +21,6 @@ const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
     const lineRecords: RemovableRef<LineRecord> = useStorage<LineRecord>('lineRecords', {});
 
     // Getters:
-    // Sum all amounts * quantity per project ID
 
     // Methods:
 
@@ -57,7 +56,22 @@ const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
         return lineRecords.value[projectID] ?? []
     }
 
-    return { lineRecords, addNewRecordForProject, createNewArrayWithoutLineItem, getLineRecordForProject }
+    function getTotalValueForProject(projectID: string):number {
+        const lineRecord = getLineRecordForProject(projectID)
+
+        let totalValue = 0
+
+        lineRecord.forEach((lineItem) => {
+            totalValue += lineItem.total
+        })
+
+        return totalValue
+    }
+
+    // Get actual income - totals of projects that have been completed
+    // Get planned income - totals of projects that are ongoing
+
+    return { lineRecords, addNewRecordForProject, createNewArrayWithoutLineItem, getLineRecordForProject, getTotalValueForProject }
 })
 
 export default useProjectLineRecorderStore
