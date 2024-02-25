@@ -41,6 +41,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .subcontainer-text-button {
@@ -59,5 +60,11 @@ img {
   object-fit: contain;
   width: auto;
   height: 200px;
+}
+
+@media (width < 992px) {
+  .container-project-creation {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

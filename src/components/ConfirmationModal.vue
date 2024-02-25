@@ -33,14 +33,6 @@ function handleConfirmation() {
 </template>
 
 <style scoped>
-.button-wrapper {
-    display: flex;
-    flex-direction: row;
-}
-
-.first-button {
-    border-right: 1px solid var(--primary-accent-color);
-}
 
 .modal-content {
     display: flex;

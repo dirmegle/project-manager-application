@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
 import useProjectManagerStore from '@/stores/projectManagerStore/projectManagerStore';
-import EditIconButton from '@/components/EditIconButton.vue'
+import EditIconButton from '@/components/EditModal/EditIconButton.vue'
 import CloseIconButton from '@/components/CloseIconButton.vue'
 import ConfirmationModal from '@/components/ConfirmationModal.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import useClientManagerStore from '@/stores/clientManagerStore/clientManagerStore';
 import ClientDisplayCard from '@/components/ClientDisplayCard.vue'
 import { ref } from 'vue';
+import EditModal from '@/components/EditModal/EditModal.vue'
 import LineItemsTable from './LineItemsTable.vue'
 import useProjectLineRecorderStore from '../../stores/projectLineRecorderStore/projectLineRecorderStore';
 
@@ -19,17 +20,24 @@ const clientManager = useClientManagerStore()
 const lineRecorder = useProjectLineRecorderStore()
 
 const isConfirmationModalVisible = ref(false)
+const confirmationMessage = ref('')
+
+const isEditModalVisible = ref(false)
 
 const project = projectManager.getProjectByID(projectID)
 
 const { projectName, clientID } = project
 
+const currentProjectName = ref(projectName)
+
 const projectDescription = ref(project.projectDescription)
 
 const client = clientManager.getClientByID(clientID)
 
-function handleProjectNameEdit() {
-    console.log('project name edit')
+function handleProjectNameEdit(newName: string) {
+    console.log('triggered')
+    projectManager.editProjectName(newName, projectID)
+    isEditModalVisible.value = false
 }
 
 function handleClose() {
@@ -41,14 +49,19 @@ function updateProjectDescription() {
 }
 
 function toggleProjectStatus() {
-    
+    projectManager.toggleProjectCompletionStatus(projectID)
+    lineRecorder.toggleCompletedStatus(projectID)
+    isConfirmationModalVisible.value = false
 }
 
-// function markProjectAsCompleted() {
-//     console.log('yes')
-// }
+function showConfirmationModal() {
+    const message = projectManager.getProjectByID(projectID).completed
+        ? `Are you sure you'd like to mark the project as ongoing? Its value of €${lineRecorder.getTotalValueForProject(projectID).toFixed(2)} will be removed from your actual income.`
+        : `Current value of the project you'd like to complete is €${lineRecorder.getTotalValueForProject(projectID).toFixed(2)}. The amount will be added to your actual income. Would you like to proceed?`
 
-// With project mark as completed, check if there are any line items. If not, need to mention that in confirmation message
+    confirmationMessage.value = message;
+    isConfirmationModalVisible.value = true;
+}
 
 </script>
 
@@ -56,8 +69,12 @@ function toggleProjectStatus() {
     <div class="content-wrapper">
         <div class="container-top">
             <div class="container-headline">
-               <h1 class="heading-large">{{ projectName }}</h1>
-                <EditIconButton @buttonClicked="handleProjectNameEdit"/> 
+               <h1 class="heading-large">{{ currentProjectName }}</h1>
+                <EditIconButton @buttonClicked="isEditModalVisible=true"/>
+                <EditModal v-if="isEditModalVisible" :currentName="projectName" @cancel="isEditModalVisible = false" @confirm="handleProjectNameEdit"/>
+                <!-- Does not react to changes immediately -->
+                <!-- Allows submitting empty string -->
+                <!-- After cancel, submits empty string -->
             </div>
             <CloseIconButton @close="handleClose"/>
         </div>
@@ -74,17 +91,12 @@ function toggleProjectStatus() {
         <p class="line-item-explanation">All fields must be filled. Whenever you want to remove a line item, click 'X'.</p>
         <LineItemsTable :projectID="projectID"/>
         <div class="button-container">
-            <BaseButton @buttonClicked="isConfirmationModalVisible = true" buttonStyle="filled-green" :disabled="false" v-if="!projectManager.getProjectByID(projectID).completed">Mark project as completed</BaseButton>
-            <BaseButton @buttonClicked="isConfirmationModalVisible = true" buttonStyle="filled-green" :disabled="false" v-if="projectManager.getProjectByID(projectID).completed">Mark project as ongoing</BaseButton>
+            <BaseButton @buttonClicked="showConfirmationModal" buttonStyle="filled-green" :disabled="false" v-if="!projectManager.getProjectByID(projectID).completed">Mark project as completed</BaseButton>
+            <BaseButton @buttonClicked="showConfirmationModal" buttonStyle="filled-green" :disabled="false" v-if="projectManager.getProjectByID(projectID).completed">Mark project as ongoing</BaseButton>
             <BaseButton @buttonClicked="handleClose" buttonStyle="filled" :disabled="false">Close</BaseButton>
         </div>
         <ConfirmationModal v-if="isConfirmationModalVisible" title="Please confirm" @cancel="isConfirmationModalVisible = false" @confirm="toggleProjectStatus">
-            <span v-if="!projectManager.getProjectByID(projectID).completed">
-                Current value of the project you'd like to complete is €{{ lineRecorder.getTotalValueForProject(projectID).toFixed(2) }}. The amount will be added to your total income. Would you like to proceed?
-            </span>
-            <span v-if="projectManager.getProjectByID(projectID).completed">
-                Are you sure you'd like to mark the project as ongoing? It's value of €{{ lineRecorder.getTotalValueForProject(projectID).toFixed(2) }} will be removed from your total income.
-            </span>
+            <span>{{ confirmationMessage }}</span>
         </ConfirmationModal>
     </div>
 </template>

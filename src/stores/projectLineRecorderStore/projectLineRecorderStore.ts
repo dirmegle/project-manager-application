@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 type LineItem = {
     itemID: string;
+    completed: boolean;
     itemName: string;
     unit: string;
     quantity: number;
@@ -12,7 +13,7 @@ type LineItem = {
 }
 
 type LineRecord = {
-    [projectID: string]: LineItem[] | undefined;
+    [projectID: string]: LineItem[] | undefined
 }
 
 const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
@@ -30,6 +31,7 @@ const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
 
         const newItemToAdd = {
             itemID,
+            completed: false,
             itemName,
             unit,
             quantity,
@@ -68,10 +70,41 @@ const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
         return totalValue
     }
 
-    // Get actual income - totals of projects that have been completed
-    // Get planned income - totals of projects that are ongoing
+    function toggleCompletedStatus(projectID: string):void {
+        const lineRecord = getLineRecordForProject(projectID)
+        const updatedLineRecord = lineRecord.map((lineItem) => ({
+            ...lineItem,
+            completed: !lineItem.completed
+        }));
+        lineRecords.value[projectID] = updatedLineRecord;
+    }
 
-    return { lineRecords, addNewRecordForProject, createNewArrayWithoutLineItem, getLineRecordForProject, getTotalValueForProject }
+    function getTotalSumOfCompletedProjects(): number {
+        return getTotalSumByStatus(true)
+    }
+
+    function getTotalSumOfOngoingProjects():number {
+        return getTotalSumByStatus(false)
+    }
+
+    function getTotalSumByStatus(status: boolean):number {
+        let totalSum = 0
+
+        Object.values(lineRecords.value).forEach((projectLineItems) => {
+            if (projectLineItems) {
+                const lineItemsTotal = projectLineItems
+                    .filter(lineItem => lineItem.completed === status)
+                    .reduce((acc, lineItem) => acc + lineItem.total, 0);
+
+                totalSum += lineItemsTotal;
+            }
+        });
+
+        return totalSum;
+    }
+
+    return { lineRecords, addNewRecordForProject, createNewArrayWithoutLineItem, getLineRecordForProject, getTotalValueForProject,
+    toggleCompletedStatus, getTotalSumOfCompletedProjects, getTotalSumOfOngoingProjects}
 })
 
 export default useProjectLineRecorderStore

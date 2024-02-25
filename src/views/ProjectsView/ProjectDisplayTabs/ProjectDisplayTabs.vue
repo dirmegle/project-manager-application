@@ -24,7 +24,7 @@ const completedProjects = computed(() => {
     </v-tabs>
 
     <v-window v-model="tab">
-        <v-window-item value="one">
+        <v-window-item transition="v-tab-transition" value="one">
             <div class="project-wrapper">
               <ProjectDisplayRouterLink v-for="project in ongoingProjects" :key="project.projectID" :project="project"/>
             </div>
@@ -32,7 +32,7 @@ const completedProjects = computed(() => {
     </v-window>
 
     <v-window v-model="tab">
-        <v-window-item value="two">
+        <v-window-item transition="v-tab-transition" value="two">
             <div class="project-wrapper">
               <ProjectDisplayRouterLink v-for="project in completedProjects" :key="project.projectID" :project="project"/>
             </div>

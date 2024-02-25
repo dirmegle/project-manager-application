@@ -9,7 +9,8 @@ export type Project = {
     projectDescription: string;
     dateCreated: string;
     dateCompleted: string;
-    completed: boolean
+    completed: boolean;
+    totalOfCompletedProject: number;
 }
 
 const useProjectManagerStore = defineStore('projectManager', () => {
@@ -49,6 +50,7 @@ const useProjectManagerStore = defineStore('projectManager', () => {
             dateCreated: currentDate,
             dateCompleted: '',
             completed: false,
+            totalOfCompletedProject: 0
         }
 
         projects.value.push(project)
@@ -69,6 +71,25 @@ const useProjectManagerStore = defineStore('projectManager', () => {
         } // TODO: Add error handling (here and in test)
     }
 
+    function editProjectName(newName: string, projectID: string) {
+
+        const projectToBeEdited = getProjectByID(projectID)
+
+        if (projectToBeEdited) {
+            projectToBeEdited.projectName = newName
+        } // TODO: Add error handling (here and in test)
+    }
+
+    function setTotalOfCompletedProject(projectID: string, total: number):void {
+
+        const projectToBeEdited = getProjectByID(projectID)
+
+        if (projectToBeEdited) {
+            projectToBeEdited.totalOfCompletedProject = total
+        }
+
+    }
+
     function toggleProjectCompletionStatus(projectID: string) {
         const projectToBeEdited = getProjectByID(projectID)
 
@@ -81,7 +102,7 @@ const useProjectManagerStore = defineStore('projectManager', () => {
         return projects.value.filter(project => project.clientID === clientID)
     }
 
-    return { projects, getProjectByID, addNewProject, createNewArrayWithoutProject, editProjectDescription, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus }
+    return { projects, getProjectByID, addNewProject, createNewArrayWithoutProject, editProjectDescription, editProjectName, setTotalOfCompletedProject, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus }
 })
 
 export default useProjectManagerStore
