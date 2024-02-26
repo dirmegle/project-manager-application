@@ -23,7 +23,7 @@ watch(
 <template>
     <div class="container-date-input">
         <label class="heading-small" for="date">{{ props.label }}</label>
-        <input placeholder="Select date" :max="currentDate" id="date" type="date" v-model="selectedDate"/>
+        <input class="container" placeholder="Select date" :max="currentDate" id="date" type="date" v-model="selectedDate"/>
     </div>
 </template>
 
@@ -31,13 +31,23 @@ watch(
 .container-date-input {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     column-gap: 5px;
-    align-items: center
+    align-items: center;
+    width: 100%;
 }
 
 .heading-small {
     font-size: 1rem;
     font-weight: 700;
+    width: auto;
+}
+
+
+input#date {
+  width: 150px;
+  padding: 5px;
+  background-color: var(--primary-background-color);
 }
 </style>
 

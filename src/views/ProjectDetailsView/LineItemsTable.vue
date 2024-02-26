@@ -2,12 +2,16 @@
 import { computed, ref } from 'vue';
 import CloseIconButton from '@/components/CloseIconButton.vue'
 import useProjectLineRecorderStore from '../../stores/projectLineRecorderStore/projectLineRecorderStore';
+import useProjectManagerStore from '../../stores/projectManagerStore/projectManagerStore';
 
 const lineRecorder = useProjectLineRecorderStore()
+const projectManager = useProjectManagerStore()
 
 const props = defineProps({
     projectID: {type: String, required: true}
 })
+
+const project = projectManager.getProjectByID(props.projectID)
 
 const name = ref('')
 const unit = ref('')
@@ -62,7 +66,7 @@ function deleteLineItem(itemID:string) {
         <div class="grid-header">Total</div>
         <div class="grid-header"></div>
 
-        <div class="grid-row input-row">
+        <div class="grid-row input-row" v-if="!project.completed">
             <div class="grid-item"><label><input placeholder="Type name" class="table-input container" type="text" v-model="name"></label></div>
             <div class="grid-item"><label><input placeholder="Type unit" class="table-input container" type="text" v-model="unit"></label></div>
             <div class="grid-item"><label><input placeholder="Type quantity" class="table-input container" type="text" v-model="quantity"></label></div>
@@ -70,7 +74,7 @@ function deleteLineItem(itemID:string) {
             <div class="grid-item"><div class="container table-input">€{{ total }}</div></div>
             <div class="grid-item"><button @click="handleItemAddition" class="container submit-button" type="button" :disabled="!areAllFieldsFilled"><span class="mdi mdi-plus"></span></button></div>
         </div>
-        
+
         <div class="grid-row" v-for="lineItem in lineRecorder.getLineRecordForProject(props.projectID)" :key="lineItem.itemID">
             <div class="grid-item data-display">{{ lineItem.itemName }}</div>
             <div class="grid-item data-display">{{ lineItem.unit }}</div>
@@ -82,7 +86,7 @@ function deleteLineItem(itemID:string) {
     </div>
 
     <div class="mobile">
-        <div class="input-block">
+        <div class="input-block" v-if="!project.completed">
             <div>
                 <label><input placeholder="Name" class="table-input container" type="text" v-model="name"></label>
             </div>

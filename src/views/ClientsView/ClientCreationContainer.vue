@@ -1,8 +1,9 @@
 <script setup lang="ts">
+    import { ref } from 'vue';
     import  BaseButton  from '@/components/BaseButton.vue'
     import AlertMessage from '@/components/AlertMessage.vue'
     import createClient from '@/assets/images/createClient.png'
-    import { ref } from 'vue';
+    import ClientCreationEditModal from './ClientCreationEditModal.vue'
 
     const isClientCreationModalVisible = ref(false)
     const isSuccessAlertVisible = ref(false)
@@ -32,5 +33,5 @@
       </div>
     </div>
     <AlertMessage v-if="isSuccessAlertVisible" color="green-lighten-1" icon="$success" title="New project added successfully">You can now add more details to each of your projects below.</AlertMessage>
-    <!-- Vieta modalui -->
+    <ClientCreationEditModal :visible="isClientCreationModalVisible" @close="isClientCreationModalVisible=false"/>
 </template>

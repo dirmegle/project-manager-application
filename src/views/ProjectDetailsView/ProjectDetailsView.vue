@@ -34,8 +34,9 @@ const projectDescription = ref(project.projectDescription)
 
 const client = clientManager.getClientByID(clientID)
 
+const totalValueOfProject = lineRecorder.getTotalValueForProject(projectID)
+
 function handleProjectNameEdit(newName: string) {
-    console.log('triggered')
     projectManager.editProjectName(newName, projectID)
     isEditModalVisible.value = false
 }
@@ -49,7 +50,7 @@ function updateProjectDescription() {
 }
 
 function toggleProjectStatus() {
-    projectManager.toggleProjectCompletionStatus(projectID)
+    projectManager.toggleProjectCompletionStatus(projectID, totalValueOfProject)
     lineRecorder.toggleCompletedStatus(projectID)
     isConfirmationModalVisible.value = false
 }
@@ -85,7 +86,7 @@ function showConfirmationModal() {
         <h2 class="heading-medium">Project description:</h2>
         <v-textarea @change="updateProjectDescription" v-model="projectDescription" variant="underlined"></v-textarea>
         <h2 class="heading-medium">Current project value</h2>
-        <div class="total-value-container container">€{{ lineRecorder.getTotalValueForProject(projectID).toFixed(2) }}</div>
+        <div class="total-value-container container">€{{ totalValueOfProject.toFixed(2) }}</div>
 
         <h2 class="heading-medium">Line items</h2>
         <p class="line-item-explanation">All fields must be filled. Whenever you want to remove a line item, click 'X'.</p>

@@ -33,8 +33,8 @@ const plannedIncome = computed(() => {
     </div>
     <h2 class="heading-medium">You currently have:</h2>
     <div class="container-number-cards">
-      <NumberCard :data="numberOfOngoingProjects.toString()">Completed projects</NumberCard>
-      <NumberCard :data="numberOfCompletedProjects.toString()">Ongoing projects</NumberCard>
+      <NumberCard :data="numberOfCompletedProjects.toString()">Completed projects</NumberCard>
+      <NumberCard :data="numberOfOngoingProjects.toString()">Ongoing projects</NumberCard>
       <NumberCard :data="`€${plannedIncome.toFixed(2)}`">Planned income</NumberCard>
     </div>
     <h2 class="heading-medium">Your actual income:</h2>
@@ -62,6 +62,7 @@ const plannedIncome = computed(() => {
     height: 70px;
     width: 70px;
     background-color: var(--secondary-background-color);
+    box-shadow: rgb(10 37 64 / 35%) 0 -2px 6px 0 inset;
   }
 
   .hello-container .image img {

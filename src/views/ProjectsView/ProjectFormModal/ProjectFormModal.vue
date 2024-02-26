@@ -93,16 +93,6 @@ function handleProjectAddition() {
 
 <style scoped>
 
-.modal-content-wrapper {
-        width: 95%;
-}
-
-.modal-content-top {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 .tabs .v-tab {
     color: var(--text-color);
     font-family: var(--primary-font);

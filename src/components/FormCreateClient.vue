@@ -4,7 +4,10 @@ import AlertMessage from '@/components/AlertMessage.vue'
 import useClientManagerStore from '@/stores/clientManagerStore/clientManagerStore'
 import { ref, computed, watch } from 'vue';
 
+const emit = defineEmits(['close'])
+
 const clientManager = useClientManagerStore()
+
 const name = ref('')
 const description = ref('')
 const notes = ref('')
@@ -18,7 +21,7 @@ const showErrorAlert = ref(false)
 const isNameProvided = computed(() => name.value.length > 0)
 
 function isNameExisting(nameToCheck: string) {
-    return clientManager.arrayOfClientNames.includes(nameToCheck)
+    return clientManager.arrayOfActiveClientNames.includes(nameToCheck)
 }
 
 function isURLValid(stringToCheck:string) {
@@ -39,12 +42,13 @@ function handleClientAddition() {
         showSuccessAlert.value = true
         setTimeout(() => {
             showSuccessAlert.value = false
-        }, 7000)
+            emit('close')
+        }, 2000)
     } else {
         showErrorAlert.value = true;
         setTimeout(() => {
             showErrorAlert.value = false;
-        }, 7000)
+        }, 5000)
     }
 }
 
@@ -66,10 +70,10 @@ watch(logo, (newURL) => {
     <AlertMessage v-if="showURLIncorrectAlert" color="red-lighten-1" icon="$error" title="Provided URL is incorrect"/>
     <v-textarea v-model="notes" rows="3" label="Notes" variant="underlined"></v-textarea>
 
-    <AlertMessage v-if="showSuccessAlert" color="green-lighten-1" icon="$success" title="Success">Client has been added and now appears in the list in the "CHOOSE CLIENT" tab.</AlertMessage>
+    <AlertMessage v-if="showSuccessAlert" color="green-lighten-1" icon="$success" title="Success">Client has been added and can now be selected for projects.</AlertMessage>
     <AlertMessage v-if="showErrorAlert" color="red-lighten-1" icon="$error" title="Error">Client with this name already exists.</AlertMessage>
 
-    <BaseButton buttonStyle="filled" :disabled="!isNameProvided" @buttonClicked="handleClientAddition">Create new client</BaseButton>
+    <BaseButton buttonStyle="filled" :disabled="!isNameProvided" @buttonClicked="handleClientAddition">Save client</BaseButton>
 </template>
 
 <style>

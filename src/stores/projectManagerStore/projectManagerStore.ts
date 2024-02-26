@@ -36,6 +36,17 @@ const useProjectManagerStore = defineStore('projectManager', () => {
     const getFilteredProjectsByComplete = () => {
         return projects.value.filter(project => project.completed)
     }
+    const getFilteredProjectsByCompletionDate = (fromDate: string, toDate: string):Project[] => {
+
+        const completedProjects = getFilteredProjectsByComplete()
+
+        return completedProjects.filter((project) => {
+            const completionDate = new Date(project.dateCompleted);
+            const from = new Date(fromDate);
+            const to = new Date(toDate);
+            return completionDate >= from && completionDate <= to;
+        })
+    }
 
     // Methods:
     function addNewProject(projectName: string, projectDescription: string, clientID:string):void {
@@ -77,44 +88,44 @@ const useProjectManagerStore = defineStore('projectManager', () => {
 
         if (projectToBeEdited) {
             projectToBeEdited.projectName = newName
-        } // TODO: Add error handling (here and in test)
-    }
-
-    function setTotalOfCompletedProject(projectID: string, total: number):void {
-
-        const projectToBeEdited = getProjectByID(projectID)
-
-        if (projectToBeEdited) {
-            projectToBeEdited.totalOfCompletedProject = total
         }
-
     }
 
-    function toggleProjectCompletionStatus(projectID: string) {
+    function toggleProjectCompletionStatus(projectID: string, total: number) {
         const projectToBeEdited = getProjectByID(projectID)
 
         if(projectToBeEdited) {
-            projectToBeEdited.completed = !projectToBeEdited.completed
-        } // TODO: Add error handling (here and in test)
+            if(!projectToBeEdited.completed){
+                projectToBeEdited.completed = true
+                projectToBeEdited.dateCompleted = currentDate
+                projectToBeEdited.totalOfCompletedProject = total
+            } else {
+                projectToBeEdited.completed = false
+                projectToBeEdited.dateCompleted = ''
+                projectToBeEdited.totalOfCompletedProject = 0
+            }
+        }
     }
 
     function getFilteredProjectsByClientID(clientID: string) {
         return projects.value.filter(project => project.clientID === clientID)
     }
 
-    function getFilteredProjectsByCompletionDate(fromDate: string, toDate: string):Project[] {
+    // function getFilteredProjectsByCompletionDate(fromDate: string, toDate: string):Project[] {
 
-        const completedProjects = getFilteredProjectsByComplete()
+    //     console.log('triggered')
 
-        return completedProjects.filter((project) => {
-            const completionDate = new Date(project.dateCompleted);
-            const from = new Date(fromDate);
-            const to = new Date(toDate);
-            return completionDate >= from && completionDate <= to;
-        })
-    }
+    //     const completedProjects = getFilteredProjectsByComplete()
 
-    return { projects, getProjectByID, addNewProject, createNewArrayWithoutProject, editProjectDescription, editProjectName, setTotalOfCompletedProject, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus, getFilteredProjectsByCompletionDate }
+    //     return completedProjects.filter((project) => {
+    //         const completionDate = new Date(project.dateCompleted);
+    //         const from = new Date(fromDate);
+    //         const to = new Date(toDate);
+    //         return completionDate >= from && completionDate <= to;
+    //     })
+    // }
+
+    return { projects, getProjectByID, addNewProject, createNewArrayWithoutProject, editProjectDescription, editProjectName, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus, getFilteredProjectsByCompletionDate }
 })
 
 export default useProjectManagerStore

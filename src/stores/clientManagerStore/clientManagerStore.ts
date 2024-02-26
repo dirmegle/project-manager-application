@@ -47,9 +47,9 @@ const useClientManagerStore = defineStore('clientManager', () => {
         return clientObject.clientID;
     }
 
-    const arrayOfClientNames = computed(() => {
+    const arrayOfActiveClientNames = computed(() => {
         const clientNames: string[] = []
-        clients.value.forEach((obj) => clientNames.push(obj.clientName))
+        getActiveClients.value.forEach((obj) => clientNames.push(obj.clientName))
         return clientNames
     })
 
@@ -73,29 +73,30 @@ const useClientManagerStore = defineStore('clientManager', () => {
 
     function toggleClientActivityStatus(clientID:string):void {
         const client = getClientByID(clientID)
+        console.log('deletion triggered', client.clientID)
 
         if(client) {
             client.active = !client.active
         }
     }
 
-    function createNewArrayWithoutClient(clientID: string):void {
-        clients.value = clients.value.filter((obj) => obj.clientID !== clientID)
-    }
+    // function createNewArrayWithoutClient(clientID: string):void {
+    //     clients.value = clients.value.filter((obj) => obj.clientID !== clientID)
+    // }
 
     // Edit client info(name, description, notes, logo)
-    function editClientInformation(newName: string, newDescription: string, newNotes:string, newLogo:string, clientID: string) {
-        const clientToBeEdited = getClientByID(clientID)
+    // function editClientInformation(newName: string, newDescription: string, newNotes:string, newLogo:string, clientID: string) {
+    //     const clientToBeEdited = getClientByID(clientID)
 
-        if (clientToBeEdited) {
-            clientToBeEdited.clientName = newName
-            clientToBeEdited.clientDescription = newDescription
-            clientToBeEdited.clientNotes = newNotes
-            clientToBeEdited.clientLogo = newLogo
-        } // TODO: Add error handling (here and in test)
-    }
+    //     if (clientToBeEdited) {
+    //         clientToBeEdited.clientName = newName
+    //         clientToBeEdited.clientDescription = newDescription
+    //         clientToBeEdited.clientNotes = newNotes
+    //         clientToBeEdited.clientLogo = newLogo
+    //     } // TODO: Add error handling (here and in test)
+    // }
 
-    return { clients, getClientByID, getClientNameByID, getClientIDByName, arrayOfClientNames, addNewClient, createNewArrayWithoutClient, editClientInformation, getActiveClients, toggleClientActivityStatus }
+    return { clients, getClientByID, getClientNameByID, getClientIDByName, arrayOfActiveClientNames, addNewClient, getActiveClients, toggleClientActivityStatus }
 })
 
 export default useClientManagerStore

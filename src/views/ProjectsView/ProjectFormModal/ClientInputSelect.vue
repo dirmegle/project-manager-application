@@ -17,7 +17,7 @@ watch(selectedClientName, (newName) => {
 <template>
     <v-select
     label="Client*"
-    :items="clientManager.arrayOfClientNames"
+    :items="clientManager.arrayOfActiveClientNames"
     v-model="selectedClientName"
     variant="underlined"
     class="input-select"
