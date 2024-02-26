@@ -102,7 +102,19 @@ const useProjectManagerStore = defineStore('projectManager', () => {
         return projects.value.filter(project => project.clientID === clientID)
     }
 
-    return { projects, getProjectByID, addNewProject, createNewArrayWithoutProject, editProjectDescription, editProjectName, setTotalOfCompletedProject, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus }
+    function getFilteredProjectsByCompletionDate(fromDate: string, toDate: string):Project[] {
+
+        const completedProjects = getFilteredProjectsByComplete()
+
+        return completedProjects.filter((project) => {
+            const completionDate = new Date(project.dateCompleted);
+            const from = new Date(fromDate);
+            const to = new Date(toDate);
+            return completionDate >= from && completionDate <= to;
+        })
+    }
+
+    return { projects, getProjectByID, addNewProject, createNewArrayWithoutProject, editProjectDescription, editProjectName, setTotalOfCompletedProject, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus, getFilteredProjectsByCompletionDate }
 })
 
 export default useProjectManagerStore

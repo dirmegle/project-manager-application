@@ -5,6 +5,7 @@ import { computed } from 'vue'
 
 export type Client = {
     clientID: string;
+    active: boolean;
     clientName: string;
     clientDescription: string;
     clientNotes: string;
@@ -25,6 +26,10 @@ const useClientManagerStore = defineStore('clientManager', () => {
         }
         return clientObject
     }
+
+    const getActiveClients = computed(() => {
+        return clients.value.filter((client) => client.active)
+    })
 
     const getClientNameByID = (clientID:string):string => {
         const clientObject = getClientByID(clientID)
@@ -55,6 +60,7 @@ const useClientManagerStore = defineStore('clientManager', () => {
 
         const client: Client = {
             clientID,
+            active: true,
             clientName,
             clientDescription,
             clientNotes,
@@ -63,6 +69,14 @@ const useClientManagerStore = defineStore('clientManager', () => {
         }
 
         clients.value.push(client)
+    }
+
+    function toggleClientActivityStatus(clientID:string):void {
+        const client = getClientByID(clientID)
+
+        if(client) {
+            client.active = !client.active
+        }
     }
 
     function createNewArrayWithoutClient(clientID: string):void {
@@ -81,7 +95,7 @@ const useClientManagerStore = defineStore('clientManager', () => {
         } // TODO: Add error handling (here and in test)
     }
 
-    return { clients, getClientByID, getClientNameByID, getClientIDByName, arrayOfClientNames, addNewClient, createNewArrayWithoutClient, editClientInformation }
+    return { clients, getClientByID, getClientNameByID, getClientIDByName, arrayOfClientNames, addNewClient, createNewArrayWithoutClient, editClientInformation, getActiveClients, toggleClientActivityStatus }
 })
 
 export default useClientManagerStore

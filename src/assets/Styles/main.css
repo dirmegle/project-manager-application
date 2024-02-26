@@ -1,5 +1,6 @@
 @import url('./base.css');
 @import url('./modal.css');
+@import url('./topActionContainer.css');
 
 * {
     padding: 0;
@@ -18,7 +19,7 @@ body {
     padding: 2rem;
     font-family: var(--primary-font);
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 12fr;
     height: 100vh;
     width: 100%;
 }
@@ -27,7 +28,7 @@ body {
     width: 100%;
     border-radius: 7px;
     box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
-    padding: 5px 15px;
+    padding: 15px;
 }
 
 .heading-large {
@@ -48,7 +49,7 @@ body {
 
 .divider {
     color: var(--text-color);
-    margin-bottom: 1rem;
+    margin: 1rem 0;
 }
 
 @media (width >= 1200px) {

@@ -1,9 +1,10 @@
 <script setup lang="ts">
     import  BaseButton  from '@/components/BaseButton.vue'
     import AlertMessage from '@/components/AlertMessage.vue'
+    import createProject from '@/assets/images/createProject.png'
     import { ref } from 'vue';
     import ProjectFormModal from './ProjectFormModal/ProjectFormModal.vue'
-
+  
     const isProjectCreationModalVisible = ref(false)
     const isSuccessAlertVisible = ref(false)
 
@@ -21,50 +22,16 @@
 </script>
 
 <template>
-    <div class="container-project-creation container">
+    <div class="container-item-creation container">
       <div class="subcontainer-text-button">
         <h1 class="heading-large">Add a new project</h1>
         <p>Choose a client, add the details and track your work.</p>
         <BaseButton @buttonClicked="toggleProjectCreationModal" buttonStyle="filled" :disabled="false">Add new</BaseButton>
       </div>
       <div class="subcontainer-image">
-        <img src="../../assets/images/create-project.png" alt="create-project-illustration">
+        <img :src="createProject" alt="create-project-illustration">
       </div>
     </div>
     <AlertMessage v-if="isSuccessAlertVisible" color="green-lighten-1" icon="$success" title="New project added successfully">You can now add more details to each of your projects below.</AlertMessage>
     <ProjectFormModal :visible="isProjectCreationModalVisible" @close="toggleProjectCreationModal" @projectCreated="handleSuccessAlert"/>
 </template>
-
-<style scoped>
-.container-project-creation {
-  background-color: var(--secondary-background-color);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.subcontainer-text-button {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  justify-content: center;
-}
-
-.subcontainer-image {
-  display: flex;
-  justify-content: center;
-}
-
-img {
-  object-fit: contain;
-  width: auto;
-  height: 200px;
-}
-
-@media (width < 992px) {
-  .container-project-creation {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

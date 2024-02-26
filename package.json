@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^10.7.2",
+    "chart.js": "^4.4.1",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "uuidv4": "^6.2.13",

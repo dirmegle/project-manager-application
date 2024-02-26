@@ -27,9 +27,9 @@ import logo from '@/assets/images/logo.png'
 
 <style scoped>
 
-  .router-view {
+  /* .router-view {
     width: 100%;
-  }
+  } */
 
   .container-nav-desktop img {
     width: 70%;
@@ -45,6 +45,11 @@ import logo from '@/assets/images/logo.png'
   .container-nav-tablet-mobile img {
     height: 40%;
     width: auto;
+  }
+
+  header {
+    width: 200px;
+    margin-right: 20px;
   }
 
   nav {
@@ -93,6 +98,7 @@ import logo from '@/assets/images/logo.png'
 
     header {
       height: 75px;
+      width: 100%;
     }
 }
 

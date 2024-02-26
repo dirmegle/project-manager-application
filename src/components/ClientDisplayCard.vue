@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import defaultLogo from '@/assets/images/defaultLogo.png'
 
@@ -50,5 +50,9 @@ function handleImageError() {
         object-fit: contain;
         width: 100%;
         height: 100%;
+    }
+
+    .heading-medium {
+        margin-bottom: 10px;
     }
 </style>

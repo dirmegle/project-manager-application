@@ -24,7 +24,7 @@ import  { RouterLink } from 'vue-router'
     color: var(--text-color);
     width: 100%;
     transition: 0.3s ease-in-out;
-    padding: 0 5px;
+    padding: 5px;
 }
 
 .container-links .heading-small:hover {
