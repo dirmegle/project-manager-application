@@ -75,7 +75,7 @@ function deleteLineItem(itemID:string) {
             <div class="grid-item"><button @click="handleItemAddition" class="container submit-button" type="button" :disabled="!areAllFieldsFilled"><span class="mdi mdi-plus"></span></button></div>
         </div>
 
-        <div class="grid-row" v-for="lineItem in lineRecorder.getLineRecordForProject(props.projectID)" :key="lineItem.itemID">
+        <div class="grid-row" data-testid="project-item" v-for="lineItem in lineRecorder.getLineRecordForProject(props.projectID)" :key="lineItem.itemID">
             <div class="grid-item data-display">{{ lineItem.itemName }}</div>
             <div class="grid-item data-display">{{ lineItem.unit }}</div>
             <div class="grid-item data-display">{{ lineItem.quantity }}</div>

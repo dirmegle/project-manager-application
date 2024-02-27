@@ -6,7 +6,7 @@
 
 <template>
     <div class="container container-data">
-        <div class="data container">{{ props.data }}</div>
+        <div data-testid="display-number" class="data container">{{ props.data }}</div>
         <h3 class="heading-small"><slot></slot></h3>
     </div>
 </template>

@@ -47,7 +47,7 @@ function handleClientDeletion() {
     
       <v-expansion-panels>
 
-        <v-expansion-panel elevation="0" class="container" v-for="client in activeClients" :key="client.clientID">
+        <v-expansion-panel elevation="0" class="container client-item" id="client-display-panel" v-for="client in activeClients" :key="client.clientID">
           <v-expansion-panel-title>
             <ClientDisplayCard :client="client"/>
           </v-expansion-panel-title>

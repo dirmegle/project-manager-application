@@ -90,7 +90,7 @@ function handleDeletionOfProject() {
     <div class="content-wrapper">
         <div class="container-top">
             <div class="container-headline">
-               <h1 class="heading-large">{{ currentProjectName }}</h1>
+               <h1 class="heading-large" data-testid="project-details-name">{{ currentProjectName }}</h1>
                 <EditIconButton @buttonClicked="isEditModalVisible=true"/>
                 <EditModal v-if="isEditModalVisible" :currentName="projectName" @cancel="isEditModalVisible = false" @confirm="handleProjectNameEdit"/>
             </div>
@@ -101,7 +101,7 @@ function handleDeletionOfProject() {
             <ClientDisplayCard :client="client"/>
         </div>
         <h2 class="heading-medium">Project description:</h2>
-        <v-textarea @change="updateProjectDescription" v-model="projectDescription" variant="underlined"></v-textarea>
+        <v-textarea data-testid="project-details-description" @change="updateProjectDescription" v-model="projectDescription" variant="underlined"></v-textarea>
         <h2 class="heading-medium">Current project value</h2>
         <div class="total-value-container container">€{{ totalValueOfProject.toFixed(2) }}</div>
 
