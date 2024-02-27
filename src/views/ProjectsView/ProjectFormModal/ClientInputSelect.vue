@@ -2,24 +2,23 @@
 import useClientManagerStore from '@/stores/clientManagerStore/clientManagerStore';
 import { ref, watch } from 'vue';
 
-const clientManager = useClientManagerStore()
+const clientManager = useClientManagerStore();
 
-const selectedClientName = ref(null)
+const selectedClientName = ref(null);
 
-const emit = defineEmits(['clientSelected'])
+const emit = defineEmits(['clientSelected']);
 
-watch(selectedClientName, (newName) => {
-    emit('clientSelected', newName);
+watch(selectedClientName, newName => {
+  emit('clientSelected', newName);
 });
-
 </script>
 
 <template>
-    <v-select
+  <v-select
     label="Client*"
     :items="clientManager.arrayOfActiveClientNames"
     v-model="selectedClientName"
     variant="underlined"
     class="input-select"
-    ></v-select>
+  ></v-select>
 </template>

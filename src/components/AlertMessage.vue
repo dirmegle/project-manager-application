@@ -1,27 +1,26 @@
 import AlertMessage from '@/components/AlertMessage.vue';
 <script setup lang="ts">
-
 const props = defineProps({
-    color: {type: String, required: true},
-    icon: {type: String, required: true},
-    title: {type: String, required: true}
-})
+  color: { type: String, required: true },
+  icon: { type: String, required: true },
+  title: { type: String, required: true }
+});
 </script>
 
 <template>
-    <v-alert
+  <v-alert
     class="alert-message"
     closable
     :color="props.color"
     :icon="props.icon"
     :title="props.title"
-    >
+  >
     <slot></slot>
-    </v-alert>
+  </v-alert>
 </template>
 
 <style scoped>
-    .alert-message {
-        margin: 10px 0;
-    }
+.alert-message {
+  margin: 10px 0;
+}
 </style>

@@ -1,33 +1,32 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import wave from '@/assets/images/wave.png'
-import useProjectManagerStore from '@/stores/projectManagerStore/projectManagerStore'
-import ActualIncomeCard from './ActualIncomeCard.vue'
-import NumberCard from './NumberCard.vue'
+import { computed } from 'vue';
+import wave from '@/assets/images/wave.png';
+import useProjectManagerStore from '@/stores/projectManagerStore/projectManagerStore';
+import ActualIncomeCard from './ActualIncomeCard.vue';
+import NumberCard from './NumberCard.vue';
 import useProjectLineRecorderStore from '../../stores/projectLineRecorderStore/projectLineRecorderStore';
 
-const projectManager = useProjectManagerStore()
-const lineRecorder = useProjectLineRecorderStore()
+const projectManager = useProjectManagerStore();
+const lineRecorder = useProjectLineRecorderStore();
 
 const numberOfOngoingProjects = computed(() => {
-    return projectManager.getFilteredProjectsByNotComplete().length
-})
+  return projectManager.getFilteredProjectsByNotComplete().length;
+});
 
 const numberOfCompletedProjects = computed(() => {
-    return projectManager.getFilteredProjectsByComplete().length
-})
+  return projectManager.getFilteredProjectsByComplete().length;
+});
 
 const plannedIncome = computed(() => {
-  return lineRecorder.getTotalSumOfOngoingProjects()
-})
-
+  return lineRecorder.getTotalSumOfOngoingProjects();
+});
 </script>
 
 <template>
   <main>
     <div class="hello-container">
       <div class="image container">
-        <img :src="wave" alt="hello">
+        <img :src="wave" alt="hello" />
       </div>
       <h1 class="heading-big">Hey there!</h1>
     </div>
@@ -38,53 +37,53 @@ const plannedIncome = computed(() => {
       <NumberCard :data="`€${plannedIncome.toFixed(2)}`">Planned income</NumberCard>
     </div>
     <h2 class="heading-medium">Your actual income:</h2>
-    <ActualIncomeCard/>
+    <ActualIncomeCard />
   </main>
 </template>
 
 <style scoped>
-  main {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
-  }
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
 
-  .hello-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 10px;
-    margin-bottom: 15px;
-  }
+.hello-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
+  margin-bottom: 15px;
+}
 
-  .hello-container .image {
-    height: 70px;
-    width: 70px;
-    background-color: var(--secondary-background-color);
-    box-shadow: rgb(10 37 64 / 35%) 0 -2px 6px 0 inset;
-  }
+.hello-container .image {
+  height: 70px;
+  width: 70px;
+  background-color: var(--secondary-background-color);
+  box-shadow: rgb(10 37 64 / 35%) 0 -2px 6px 0 inset;
+}
 
-  .hello-container .image img {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-  }
+.hello-container .image img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
 
+.container-number-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+@media (width < 992px) {
   .container-number-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 15px;
+    grid-template-columns: 1fr;
   }
 
-  @media (width < 992px) {
-    .container-number-cards {
-      grid-template-columns: 1fr;
-    }
-
-    .heading-big {
-      font-size: 1.5rem;
-    }
+  .heading-big {
+    font-size: 1.5rem;
   }
+}
 </style>

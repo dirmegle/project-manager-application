@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch } from 'vue';
 
 const props = defineProps({
-    label: {type: String, required: true},
-    content: {type: String, default: () => ''}
-})
+  label: { type: String, required: true },
+  content: { type: String, default: () => '' }
+});
 
-const emit = defineEmits(['updateDate'])
+const emit = defineEmits(['updateDate']);
 
-const selectedDate = ref(props.content)
+const selectedDate = ref(props.content);
 const currentDate = computed(() => new Date().toISOString().slice(0, 10));
 
 watch(
@@ -17,32 +17,37 @@ watch(
     emit('updateDate', newDate);
   }
 );
-
 </script>
 
 <template>
-    <div class="container-date-input">
-        <label class="heading-small" for="date">{{ props.label }}</label>
-        <input class="container" placeholder="Select date" :max="currentDate" id="date" type="date" v-model="selectedDate"/>
-    </div>
+  <div class="container-date-input">
+    <label class="heading-small" for="date">{{ props.label }}</label>
+    <input
+      class="container"
+      placeholder="Select date"
+      :max="currentDate"
+      id="date"
+      type="date"
+      v-model="selectedDate"
+    />
+  </div>
 </template>
 
 <style scoped>
 .container-date-input {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    column-gap: 5px;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 5px;
+  align-items: center;
+  width: 100%;
 }
 
 .heading-small {
-    font-size: 1rem;
-    font-weight: 700;
-    width: auto;
+  font-size: 1rem;
+  font-weight: 700;
+  width: auto;
 }
-
 
 input#date {
   width: 150px;

@@ -3,36 +3,36 @@
 
 /* Light theme */
 :root {
-    /* Colors */
+  /* Colors */
 
-    /* blue-grey-darken-4 */
-    --text-color: #263238;
+  /* blue-grey-darken-4 */
+  --text-color: #263238;
 
-    /* grey-lighten-5 */
-    --primary-background-color: #FAFAFA;
+  /* grey-lighten-5 */
+  --primary-background-color: #fafafa;
 
-    /* blue-grey-lighten-5 */
-    --secondary-background-color: #ECEFF1;
+  /* blue-grey-lighten-5 */
+  --secondary-background-color: #eceff1;
 
-    /* blue-grey-lighten-4 */
-    --tertiary-background-color: #CFD8DC;
+  /* blue-grey-lighten-4 */
+  --tertiary-background-color: #cfd8dc;
 
-    /* indigo-accent-1 */
-    --primary-accent-color: #8F8FF4;
+  /* indigo-accent-1 */
+  --primary-accent-color: #8f8ff4;
 
-    /* green-lighten-1 */
-    --secondary-accent-color: #66BB6A;
+  /* green-lighten-1 */
+  --secondary-accent-color: #66bb6a;
 
-    /* yellow */
-    --tertiary-accent-color: #ffeb3b;
+  /* yellow */
+  --tertiary-accent-color: #ffeb3b;
 
-    /* Fonts */
-    --primary-font: "Lato", sans-serif;
+  /* Fonts */
+  --primary-font: 'Lato', sans-serif;
 }
 
 /* Dark theme */
-[data-theme="dark"] {
-    --text-color: #FAFAFA;
-    --primary-background-color: #263238;
-    --secondary-background-color: #37474F;
+[data-theme='dark'] {
+  --text-color: #fafafa;
+  --primary-background-color: #263238;
+  --secondary-background-color: #37474f;
 }

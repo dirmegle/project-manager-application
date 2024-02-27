@@ -33,4 +33,9 @@ test('clients can be added through client view and through project creation', as
   await page.getByRole('button', { name: '󰅖' }).click();
   await page.getByRole('link', { name: '󰀎 Clients' }).click();
   await expect(page.locator('.client-item')).toHaveCount(2)
+
+  await page.getByRole('button', { name: 'client-logo Awesome company 1' }).click();
+  await page.getByRole('button', { name: 'Delete client' }).click();
+  await page.getByRole('button', { name: 'Confirm' }).nth(1).click();
+  await expect(page.locator('.client-item')).toHaveCount(1)
 });

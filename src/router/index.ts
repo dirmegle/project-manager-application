@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import DashboardView from '../views/DashboardView/DashboardView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import DashboardView from '../views/DashboardView/DashboardView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: '/projects/:id',
       name: 'projectDetails',
-      component: () => import('../views/ProjectDetailsView/ProjectDetailsView.vue'),
+      component: () => import('../views/ProjectDetailsView/ProjectDetailsView.vue')
     },
     {
       path: '/clients',
@@ -33,6 +33,6 @@ const router = createRouter({
     //   component: () => import('../views/AboutView.vue')
     // }
   ]
-})
+});
 
-export default router
+export default router;
