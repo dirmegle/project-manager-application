@@ -57,9 +57,12 @@ const completedProjects = computed(() => {
 </template>
 
 <style scoped>
+    .v-slide-group {
+        flex: none
+    }
+
     .project-wrapper {
         margin: 20px 0;
-        width: 90vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
