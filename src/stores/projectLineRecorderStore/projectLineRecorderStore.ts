@@ -20,7 +20,7 @@ const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
 
     const lineRecords: RemovableRef<LineRecord> = useStorage<LineRecord>('lineRecords', {});
 
-    function addNewRecordForProject({ itemName, unit, quantity, price, total }: Omit<LineItem, 'itemID'>, projectID: string) {
+    function addNewRecordForProject({ itemName, unit, quantity, price, total }: Omit<LineItem, 'itemID' | 'completed'>, projectID: string) {
 
         const itemID: string = uuidv4()
 
