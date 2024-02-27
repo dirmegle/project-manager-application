@@ -35,3 +35,4 @@
     <AlertMessage v-if="isSuccessAlertVisible" color="green-lighten-1" icon="$success" title="New project added successfully">You can now add more details to each of your projects below.</AlertMessage>
     <ProjectFormModal :visible="isProjectCreationModalVisible" @close="toggleProjectCreationModal" @projectCreated="handleSuccessAlert"/>
 </template>
+

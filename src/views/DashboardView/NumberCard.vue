@@ -47,15 +47,16 @@
 
 @media (width < 992px) {
     .container-data {
-        flex-direction: row;
+        flex-direction: column;
         padding: 0;
-        padding: 5px;
+        padding: 10px;
+        justify-content: start;
+        column-gap: 15px;
     }
 
     .data {
         margin-bottom: 0;
         font-size: 1.8rem;
-        width: 100%;
     }
   }
 

@@ -6,7 +6,6 @@ import logo from '@/assets/images/logo.png'
 </script>
 
 <template>
-  <!-- Set up logic for the desktop and mobile navigation -->
   <header>
       <nav>
         <div class="container-nav-desktop">
@@ -26,10 +25,6 @@ import logo from '@/assets/images/logo.png'
 </template>
 
 <style scoped>
-
-  /* .router-view {
-    width: 100%;
-  } */
 
   .container-nav-desktop img {
     width: 70%;
@@ -78,6 +73,10 @@ import logo from '@/assets/images/logo.png'
   }
 
   @media (width < 992px) {
+    .router-view {
+      margin-top: 30px;
+    }
+
     .container-nav-desktop {
       display: none;
     }
@@ -88,6 +87,7 @@ import logo from '@/assets/images/logo.png'
 
     .divider {
       display: block;
+      margin-bottom: 30px;
     }
 
     nav {

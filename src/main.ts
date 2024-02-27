@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import '@mdi/font/css/materialdesignicons.css'
-import './assets/Styles/main.css'
+import './assets/style/main.css'
 
 
 import { createApp } from 'vue'

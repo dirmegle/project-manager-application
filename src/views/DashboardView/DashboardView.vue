@@ -82,5 +82,9 @@ const plannedIncome = computed(() => {
     .container-number-cards {
       grid-template-columns: 1fr;
     }
+
+    .heading-big {
+      font-size: 1.5rem;
+    }
   }
 </style>

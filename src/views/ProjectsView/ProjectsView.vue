@@ -8,6 +8,12 @@ import ProjectDisplayTabs from './ProjectDisplayTabs/ProjectDisplayTabs.vue'
 <template>
   <main>
     <ProjectCreationContainer/>
-    <ProjectDisplayTabs/>
+    <ProjectDisplayTabs class="tabs"/>
   </main>
 </template>
+
+<style scoped>
+.tabs {
+  width: 100%;
+}
+</style>

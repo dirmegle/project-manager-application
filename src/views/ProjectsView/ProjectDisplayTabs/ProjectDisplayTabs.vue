@@ -19,9 +19,9 @@ const completedProjects = computed(() => {
 </script>
 
 <template>
-    <v-tabs v-model="tab" class="tabs" color="indigo-accent-1" align-tabs="center">
-        <v-tab value="one">Ongoing projects</v-tab>
-        <v-tab value="two">Completed projects</v-tab>
+    <v-tabs grow v-model="tab" class="tabs" color="indigo-accent-1" align-tabs="center">
+        <v-tab value="one">Ongoing</v-tab>
+        <v-tab value="two">Completed</v-tab>
     </v-tabs>
 
     <v-window v-model="tab">
@@ -59,7 +59,7 @@ const completedProjects = computed(() => {
 <style scoped>
     .project-wrapper {
         margin: 20px 0;
-        width: 100%;
+        width: 90vw;
         display: flex;
         flex-direction: column;
         justify-content: center;

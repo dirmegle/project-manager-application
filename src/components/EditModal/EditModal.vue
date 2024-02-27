@@ -54,4 +54,10 @@ function handleConfirmation() {
     .v-text-field {
         width: 80%;
     }
+
+    @media (width < 762px) {
+        .modal-content {
+            width: 90%;
+        }
+    }
 </style>

@@ -33,4 +33,10 @@ function handleClose() {
     .modal-content {
         width: 50%;
     }
+
+    @media (width < 762px) {
+        .modal-content {
+            width: 90%;
+        }
+    }
 </style>

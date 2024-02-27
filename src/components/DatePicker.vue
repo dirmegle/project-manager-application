@@ -49,6 +49,13 @@ input#date {
   padding: 5px;
   background-color: var(--primary-background-color);
 }
+
+@media (width < 624px) {
+  .container-date-input {
+    flex-direction: column;
+    justify-content: start;
+  }
+}
 </style>
 
 <!-- <script setup lang="ts">

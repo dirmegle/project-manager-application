@@ -35,7 +35,6 @@ Due to lack of time, the application is not withouts its limitations and drawbac
 - Add further filtering of projects: by deadline, by client.
 - Add default unit and price for project to increase ease-of-use.
 - Add key navigation, especially in project detail view while adding line items.
-- Add ability to remove projects.
 
 **Client management:**
 - Add ability to edit client information.

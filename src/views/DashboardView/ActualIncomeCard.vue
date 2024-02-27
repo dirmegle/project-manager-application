@@ -86,6 +86,7 @@ function getActualIncomeForDates() {
     padding: 40px 30px;
     display: grid;
     grid-template-columns: 4fr 1fr;
+    width: 100%;
 }
 
 .container-information {
@@ -125,6 +126,11 @@ function getActualIncomeForDates() {
 }
 
 @media (width < 624px) {
+    .container-date-pickers {
+        flex-direction: column;
+        row-gap: 15px;
+    }
+
     .container-actual-income {
         grid-template-columns: 1fr;
     }

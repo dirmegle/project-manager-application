@@ -50,4 +50,10 @@ function handleConfirmation() {
     text-align: center;
     margin-bottom: 15px;
 }
+
+@media (width < 762px) {
+        .modal-content {
+            width: 90%;
+        }
+    }
 </style>
