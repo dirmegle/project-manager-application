@@ -36,6 +36,7 @@ const useProjectManagerStore = defineStore('projectManager', () => {
     const getFilteredProjectsByComplete = () => {
         return projects.value.filter(project => project.completed)
     }
+
     const getFilteredProjectsByCompletionDate = (fromDate: string, toDate: string):Project[] => {
 
         const completedProjects = getFilteredProjectsByComplete()
@@ -48,7 +49,6 @@ const useProjectManagerStore = defineStore('projectManager', () => {
         })
     }
 
-    // Methods:
     function addNewProject(projectName: string, projectDescription: string, clientID:string):void {
 
         const projectID: string = uuidv4();
@@ -71,7 +71,6 @@ const useProjectManagerStore = defineStore('projectManager', () => {
         projects.value = projects.value.filter((obj) => obj.projectID !== projectID)
     }
 
-    // Need to add method to remove all projects for client ID
 
     function editProjectDescription(newDescription: string, projectID: string) {
 
@@ -79,7 +78,7 @@ const useProjectManagerStore = defineStore('projectManager', () => {
 
         if (projectToBeEdited) {
             projectToBeEdited.projectDescription = newDescription
-        } // TODO: Add error handling (here and in test)
+        }
     }
 
     function editProjectName(newName: string, projectID: string) {
@@ -110,20 +109,6 @@ const useProjectManagerStore = defineStore('projectManager', () => {
     function getFilteredProjectsByClientID(clientID: string) {
         return projects.value.filter(project => project.clientID === clientID)
     }
-
-    // function getFilteredProjectsByCompletionDate(fromDate: string, toDate: string):Project[] {
-
-    //     console.log('triggered')
-
-    //     const completedProjects = getFilteredProjectsByComplete()
-
-    //     return completedProjects.filter((project) => {
-    //         const completionDate = new Date(project.dateCompleted);
-    //         const from = new Date(fromDate);
-    //         const to = new Date(toDate);
-    //         return completionDate >= from && completionDate <= to;
-    //     })
-    // }
 
     return { projects, getProjectByID, addNewProject, createNewArrayWithoutProject, editProjectDescription, editProjectName, getFilteredProjectsByNotComplete, getFilteredProjectsByComplete, getFilteredProjectsByClientID, toggleProjectCompletionStatus, getFilteredProjectsByCompletionDate }
 })

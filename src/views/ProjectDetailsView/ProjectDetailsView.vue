@@ -7,28 +7,36 @@ import ConfirmationModal from '@/components/ConfirmationModal.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import useClientManagerStore from '@/stores/clientManagerStore/clientManagerStore';
 import ClientDisplayCard from '@/components/ClientDisplayCard.vue'
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import EditModal from '@/components/EditModal/EditModal.vue'
 import LineItemsTable from './LineItemsTable.vue'
 import useProjectLineRecorderStore from '../../stores/projectLineRecorderStore/projectLineRecorderStore';
 
-const route = useRoute();
+const route = useRoute()
 const router = useRouter()
+
 const projectID = route.params.id as string
 const projectManager = useProjectManagerStore()
+
 const clientManager = useClientManagerStore()
 const lineRecorder = useProjectLineRecorderStore()
 
-const isConfirmationModalVisible = ref(false)
-const confirmationMessage = ref('')
+const isStatusConfirmationModalVisible = ref(false)
+const statusConfirmationMessage = ref('')
 
 const isEditModalVisible = ref(false)
+
+const isDeletionConfirmationModalVisible = ref(false)
+const deletionConfirmationMessage = ref('')
 
 const project = projectManager.getProjectByID(projectID)
 
 const { projectName, clientID } = project
 
-const currentProjectName = ref(projectName)
+const currentProjectName = computed(() => {
+  const currentProject = projectManager.getProjectByID(projectID);
+  return currentProject ? currentProject.projectName : '';
+});
 
 const projectDescription = ref(project.projectDescription)
 
@@ -52,16 +60,28 @@ function updateProjectDescription() {
 function toggleProjectStatus() {
     projectManager.toggleProjectCompletionStatus(projectID, totalValueOfProject)
     lineRecorder.toggleCompletedStatus(projectID)
-    isConfirmationModalVisible.value = false
+    isStatusConfirmationModalVisible.value = false
 }
 
-function showConfirmationModal() {
+function showStatusConfirmationModal() {
     const message = projectManager.getProjectByID(projectID).completed
         ? `Are you sure you'd like to mark the project as ongoing? Its value of €${lineRecorder.getTotalValueForProject(projectID).toFixed(2)} will be removed from your actual income.`
-        : `Current value of the project you'd like to complete is €${lineRecorder.getTotalValueForProject(projectID).toFixed(2)}. The amount will be added to your actual income. Would you like to proceed?`
+        : `Current value of the project you'd like to complete is €${lineRecorder.getTotalValueForProject(projectID).toFixed(2)}. The amount will be added to your actual income. You will not be able to add any new line items. Would you like to proceed?`
 
-    confirmationMessage.value = message;
-    isConfirmationModalVisible.value = true;
+    statusConfirmationMessage.value = message;
+    isStatusConfirmationModalVisible.value = true;
+}
+
+function showDeletionConfirmationModal() {
+    deletionConfirmationMessage.value = 'Are you sure you want to delete the project? All income data of this project will be removed.'
+    isDeletionConfirmationModalVisible.value = true
+}
+
+function handleDeletionOfProject() {
+    lineRecorder.removeProjectArrayFromObject(projectID)
+    projectManager.createNewArrayWithoutProject(projectID)
+    isDeletionConfirmationModalVisible.value = false
+    handleClose()
 }
 
 </script>
@@ -73,9 +93,6 @@ function showConfirmationModal() {
                <h1 class="heading-large">{{ currentProjectName }}</h1>
                 <EditIconButton @buttonClicked="isEditModalVisible=true"/>
                 <EditModal v-if="isEditModalVisible" :currentName="projectName" @cancel="isEditModalVisible = false" @confirm="handleProjectNameEdit"/>
-                <!-- Does not react to changes immediately -->
-                <!-- Allows submitting empty string -->
-                <!-- After cancel, submits empty string -->
             </div>
             <CloseIconButton @close="handleClose"/>
         </div>
@@ -92,12 +109,16 @@ function showConfirmationModal() {
         <p class="line-item-explanation">All fields must be filled. Whenever you want to remove a line item, click 'X'.</p>
         <LineItemsTable :projectID="projectID"/>
         <div class="button-container">
-            <BaseButton @buttonClicked="showConfirmationModal" buttonStyle="filled-green" :disabled="false" v-if="!projectManager.getProjectByID(projectID).completed">Mark project as completed</BaseButton>
-            <BaseButton @buttonClicked="showConfirmationModal" buttonStyle="filled-green" :disabled="false" v-if="projectManager.getProjectByID(projectID).completed">Mark project as ongoing</BaseButton>
+            <BaseButton @buttonClicked="showStatusConfirmationModal" buttonStyle="filled-green" :disabled="false" v-if="!projectManager.getProjectByID(projectID).completed">Mark project as completed</BaseButton>
+            <BaseButton @buttonClicked="showStatusConfirmationModal" buttonStyle="filled-green" :disabled="false" v-if="projectManager.getProjectByID(projectID).completed">Mark project as ongoing</BaseButton>
+            <BaseButton @buttonClicked="showDeletionConfirmationModal" buttonStyle="filled-green" :disabled="false">Delete project</BaseButton>
             <BaseButton @buttonClicked="handleClose" buttonStyle="filled" :disabled="false">Close</BaseButton>
         </div>
-        <ConfirmationModal v-if="isConfirmationModalVisible" title="Please confirm" @cancel="isConfirmationModalVisible = false" @confirm="toggleProjectStatus">
-            <span>{{ confirmationMessage }}</span>
+        <ConfirmationModal v-if="isStatusConfirmationModalVisible" title="Please confirm" @cancel="isStatusConfirmationModalVisible = false" @confirm="toggleProjectStatus">
+            <span>{{ statusConfirmationMessage }}</span>
+        </ConfirmationModal>
+        <ConfirmationModal v-if="isDeletionConfirmationModalVisible" title="Please confirm" @cancel="isDeletionConfirmationModalVisible = false" @confirm="handleDeletionOfProject">
+            <span>{{ deletionConfirmationMessage }}</span>
         </ConfirmationModal>
     </div>
 </template>

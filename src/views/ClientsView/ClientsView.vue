@@ -4,6 +4,7 @@ import { computed, ref } from 'vue';
 import ClientDisplayCard from '@/components/ClientDisplayCard.vue'
 import useClientManagerStore from '@/stores/clientManagerStore/clientManagerStore';
 import BaseButton from '@/components/BaseButton.vue'
+import defaultLogo from '@/assets/images/defaultLogo.png'
 import ClientCreationContainer from './ClientCreationContainer.vue'
 
 const clientManager = useClientManagerStore()
@@ -35,7 +36,15 @@ function handleClientDeletion() {
 
     <v-divider class="divider"></v-divider>
 
+    <div class="container-no-content" v-if="activeClients.length === 0">
+        <div class="container-image">
+            <img :src="defaultLogo" alt="No-content">
+        </div>
+        <p class="no-content-message">You currently have no clients. <br>
+        Add some!</p>
+      </div>
     <div class="container-client-list">
+    
       <v-expansion-panels>
 
         <v-expansion-panel elevation="0" class="container" v-for="client in activeClients" :key="client.clientID">

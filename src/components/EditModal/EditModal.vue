@@ -28,8 +28,8 @@ function handleConfirmation() {
            <h1 class="heading-large">Change project name:</h1>
             <v-text-field v-model="name" label="New project name" variant="underlined"></v-text-field>
             <div class="button-wrapper">
-                <BaseButton class="first-button" buttonStyle="empty" :disabled="false" @buttonClicked="handleConfirmation">Confirm</BaseButton>
-                <BaseButton buttonStyle="empty" :disabled="!isNameProvided" @buttonClicked="handleCancel">Cancel</BaseButton>
+                <BaseButton class="first-button" buttonStyle="empty" :disabled="!isNameProvided" @buttonClicked="handleConfirmation">Confirm</BaseButton>
+                <BaseButton buttonStyle="empty" :disabled="false" @buttonClicked="handleCancel">Cancel</BaseButton>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@ function handleConfirmation() {
 
 <style scoped>
     .modal-content {
-        width: 50%;
+        width: 30%;
         display: flex;
         flex-direction: column;
         justify-content: center;

@@ -18,12 +18,7 @@ type LineRecord = {
 
 const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
 
-    // States:
     const lineRecords: RemovableRef<LineRecord> = useStorage<LineRecord>('lineRecords', {});
-
-    // Getters:
-
-    // Methods:
 
     function addNewRecordForProject({ itemName, unit, quantity, price, total }: Omit<LineItem, 'itemID'>, projectID: string) {
 
@@ -52,7 +47,11 @@ const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
        }
     }
 
-    // Probably need to add removal by project as well
+    function removeProjectArrayFromObject(projectID: string) {
+        if (lineRecords.value[projectID]) {
+            delete lineRecords.value[projectID];
+        }
+    }
 
     function getLineRecordForProject(projectID: string): LineItem[] {
         return lineRecords.value[projectID] ?? []
@@ -104,7 +103,7 @@ const useProjectLineRecorderStore = defineStore('lineRecorder', () => {
     }
 
     return { lineRecords, addNewRecordForProject, createNewArrayWithoutLineItem, getLineRecordForProject, getTotalValueForProject,
-    toggleCompletedStatus, getTotalSumOfCompletedProjects, getTotalSumOfOngoingProjects}
+    toggleCompletedStatus, getTotalSumOfCompletedProjects, getTotalSumOfOngoingProjects, removeProjectArrayFromObject}
 })
 
 export default useProjectLineRecorderStore

@@ -4,7 +4,7 @@
     import createProject from '@/assets/images/createProject.png'
     import { ref } from 'vue';
     import ProjectFormModal from './ProjectFormModal/ProjectFormModal.vue'
-  
+
     const isProjectCreationModalVisible = ref(false)
     const isSuccessAlertVisible = ref(false)
 

@@ -67,10 +67,10 @@ function deleteLineItem(itemID:string) {
         <div class="grid-header"></div>
 
         <div class="grid-row input-row" v-if="!project.completed">
-            <div class="grid-item"><label><input placeholder="Type name" class="table-input container" type="text" v-model="name"></label></div>
-            <div class="grid-item"><label><input placeholder="Type unit" class="table-input container" type="text" v-model="unit"></label></div>
-            <div class="grid-item"><label><input placeholder="Type quantity" class="table-input container" type="text" v-model="quantity"></label></div>
-            <div class="grid-item"><label><input placeholder="Type price" class="table-input container" type="text" v-model="price"></label></div>
+            <div class="grid-item"><label><input placeholder="Name" class="table-input container" type="text" v-model="name"></label></div>
+            <div class="grid-item"><label><input placeholder="Unit" class="table-input container" type="text" v-model="unit"></label></div>
+            <div class="grid-item"><label><input placeholder="Quantity" class="table-input container" type="text" v-model="quantity"></label></div>
+            <div class="grid-item"><label><input placeholder="Price" class="table-input container" type="text" v-model="price"></label></div>
             <div class="grid-item"><div class="container table-input">€{{ total }}</div></div>
             <div class="grid-item"><button @click="handleItemAddition" class="container submit-button" type="button" :disabled="!areAllFieldsFilled"><span class="mdi mdi-plus"></span></button></div>
         </div>

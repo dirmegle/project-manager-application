@@ -1,6 +1,7 @@
 @import url('./base.css');
 @import url('./modal.css');
 @import url('./topActionContainer.css');
+@import url('./noContentMessage.css');
 
 * {
     padding: 0;

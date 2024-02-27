@@ -15,10 +15,8 @@ export type Client = {
 
 const useClientManagerStore = defineStore('clientManager', () => {
 
-    // States:
     const clients: RemovableRef<Client[]> = useStorage<Client[]>('clients', []);
 
-    // Getters:
     const getClientByID = (clientID: string):Client => {
         const clientObject = clients.value.find(obj => obj.clientID === clientID)
         if (!clientObject) {
@@ -53,7 +51,6 @@ const useClientManagerStore = defineStore('clientManager', () => {
         return clientNames
     })
 
-    // Methods:
     function addNewClient(clientName: string, clientDescription: string, clientNotes:string, clientLogo:string, isLogoURLValid: boolean) {
 
         const clientID:string = uuidv4()
@@ -73,16 +70,11 @@ const useClientManagerStore = defineStore('clientManager', () => {
 
     function toggleClientActivityStatus(clientID:string):void {
         const client = getClientByID(clientID)
-        console.log('deletion triggered', client.clientID)
 
         if(client) {
             client.active = !client.active
         }
     }
-
-    // function createNewArrayWithoutClient(clientID: string):void {
-    //     clients.value = clients.value.filter((obj) => obj.clientID !== clientID)
-    // }
 
     // Edit client info(name, description, notes, logo)
     // function editClientInformation(newName: string, newDescription: string, newNotes:string, newLogo:string, clientID: string) {

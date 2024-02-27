@@ -6,8 +6,6 @@ const props = defineProps({
     client: {type: Object, required: true}
 })
 
-// const logoPath = ref('')
-
 const { clientName, clientDescription, isLogoURLValid, clientLogo } = props.client
 
 const logoPath = ref(isLogoURLValid ? clientLogo : defaultLogo)

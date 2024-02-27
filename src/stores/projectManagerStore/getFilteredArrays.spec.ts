@@ -12,29 +12,32 @@ describe('Filter methods from Project Manager Store', () => {
             {
                 projectID: 'AB1',
                 clientID: 'DC2',
-                name: 'Write a brief',
-                description: 'For new campaign',
+                projectName: 'Write a brief',
+                projectDescription: 'For new campaign',
                 dateCreated: '2024-02-10',
                 dateCompleted: '',
-                completed: false
+                completed: false,
+                totalOfCompletedProject: 0
             },
             {
                 projectID: 'AB2',
                 clientID: 'DC2',
-                name: 'Write ad copies',
-                description: 'For iterations',
+                projectName: 'Write ad copies',
+                projectDescription: 'For iterations',
                 dateCreated: '2024-02-01',
                 dateCompleted: '2024-02-05',
-                completed: true
+                completed: true,
+                totalOfCompletedProject: 400
             },
             {
                 projectID: 'AB3',
                 clientID: 'DC3',
-                name: 'Prepare an article',
-                description: 'About puppies',
+                projectName: 'Prepare an article',
+                projectDescription: 'About puppies',
                 dateCreated: '2024-02-07',
                 dateCompleted: '',
-                completed: false
+                completed: false,
+                totalOfCompletedProject: 0
             }
         ]
     })
@@ -47,20 +50,22 @@ describe('Filter methods from Project Manager Store', () => {
             {
                 projectID: 'AB1',
                 clientID: 'DC2',
-                name: 'Write a brief',
-                description: 'For new campaign',
+                projectName: 'Write a brief',
+                projectDescription: 'For new campaign',
                 dateCreated: '2024-02-10',
                 dateCompleted: '',
-                completed: false
+                completed: false,
+                totalOfCompletedProject: 0
             },
             {
                 projectID: 'AB3',
                 clientID: 'DC3',
-                name: 'Prepare an article',
-                description: 'About puppies',
+                projectName: 'Prepare an article',
+                projectDescription: 'About puppies',
                 dateCreated: '2024-02-07',
                 dateCompleted: '',
-                completed: false
+                completed: false,
+                totalOfCompletedProject: 0
             }
         ])
 
@@ -74,11 +79,12 @@ describe('Filter methods from Project Manager Store', () => {
             {
                 projectID: 'AB2',
                 clientID: 'DC2',
-                name: 'Write ad copies',
-                description: 'For iterations',
+                projectName: 'Write ad copies',
+                projectDescription: 'For iterations',
                 dateCreated: '2024-02-01',
                 dateCompleted: '2024-02-05',
-                completed: true
+                completed: true,
+                totalOfCompletedProject: 400
             }
         ])
     })
@@ -91,20 +97,40 @@ describe('Filter methods from Project Manager Store', () => {
             {
                 projectID: 'AB1',
                 clientID: 'DC2',
-                name: 'Write a brief',
-                description: 'For new campaign',
+                projectName: 'Write a brief',
+                projectDescription: 'For new campaign',
                 dateCreated: '2024-02-10',
                 dateCompleted: '',
-                completed: false
+                completed: false,
+                totalOfCompletedProject: 0
             },
             {
                 projectID: 'AB2',
                 clientID: 'DC2',
-                name: 'Write ad copies',
-                description: 'For iterations',
+                projectName: 'Write ad copies',
+                projectDescription: 'For iterations',
                 dateCreated: '2024-02-01',
                 dateCompleted: '2024-02-05',
-                completed: true
+                completed: true,
+                totalOfCompletedProject: 400
+            }
+        ])
+    })
+
+    it('returns a new array of objects within date range', () => {
+        const projectManager = useProjectManagerStore()
+        const filteredProjects = projectManager.getFilteredProjectsByCompletionDate('2024-02-03', '2024-02-05')
+
+        expect(filteredProjects).toEqual([
+            {
+                projectID: 'AB2',
+                clientID: 'DC2',
+                projectName: 'Write ad copies',
+                projectDescription: 'For iterations',
+                dateCreated: '2024-02-01',
+                dateCompleted: '2024-02-05',
+                completed: true,
+                totalOfCompletedProject: 400
             }
         ])
     })

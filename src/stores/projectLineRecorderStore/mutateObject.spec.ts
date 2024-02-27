@@ -15,26 +15,32 @@ describe('Methods that mutate Line Records object', () => {
             'aaa1': [
                 {
                 itemID: 'aaa1-1',
-                name: 'Research',
+                completed: false,
+                itemName: 'Research',
                 unit: 'hour',
                 quantity: 2,
-                price: 40
+                price: 40,
+                total: 80
                 },
                 {
                 itemID: 'aaa1-2',
-                name: 'Writing',
+                completed: false,
+                itemName: 'Writing',
                 unit: 'hour',
                 quantity: 7,
-                price: 40
+                price: 40,
+                total: 280,
                 }
             ],
             'bbb1': [
                 {
                 itemID: 'bbb1-1',
-                name: 'Research',
+                completed: false,
+                itemName: 'Research',
                 unit: 'hour',
                 quantity: 2,
-                price: 40
+                price: 40,
+                total: 80
                 }
             ]
             }
@@ -47,10 +53,12 @@ describe('Methods that mutate Line Records object', () => {
 
         const projectLineRecorder = useProjectLineRecorderStore()
         const newLineItem = {
-            name: 'Creating a brandbook',
+            itemName: 'Creating a brandbook',
+            completed: false,
             unit: 'hour',
             quantity: 5,
-            price: 40
+            price: 40,
+            total: 200
         }
 
         projectLineRecorder.addNewRecordForProject(newLineItem, 'bbb1')
@@ -59,33 +67,41 @@ describe('Methods that mutate Line Records object', () => {
             'aaa1': [
                 {
                 itemID: 'aaa1-1',
-                name: 'Research',
+                completed: false,
+                itemName: 'Research',
                 unit: 'hour',
                 quantity: 2,
-                price: 40
+                price: 40,
+                total: 80
                 },
                 {
                 itemID: 'aaa1-2',
-                name: 'Writing',
+                completed: false,
+                itemName: 'Writing',
                 unit: 'hour',
                 quantity: 7,
-                price: 40
+                price: 40,
+                total: 280,
                 }
             ],
             'bbb1': [
                 {
                 itemID: 'bbb1-1',
-                name: 'Research',
+                completed: false,
+                itemName: 'Research',
                 unit: 'hour',
                 quantity: 2,
-                price: 40
+                price: 40,
+                total: 80
                 },
                 {
                 itemID: 'bbb1-2',
-                name: 'Creating a brandbook',
+                itemName: 'Creating a brandbook',
+                completed: false,
                 unit: 'hour',
                 quantity: 5,
-                price: 40
+                price: 40,
+                total: 200
                 }
             ]
         })
@@ -99,10 +115,12 @@ describe('Methods that mutate Line Records object', () => {
         const projectLineRecorder = useProjectLineRecorderStore()
 
         const newLineItem = {
-            name: 'Write an ad brief',
+            itemName: 'Write an ad brief',
+            completed: false,
             unit: 'hour',
             quantity: 8,
-            price: 40
+            price: 40,
+            total: 320
         }
 
         projectLineRecorder.addNewRecordForProject(newLineItem, 'ccc1')
@@ -111,35 +129,43 @@ describe('Methods that mutate Line Records object', () => {
             'aaa1': [
                 {
                 itemID: 'aaa1-1',
-                name: 'Research',
+                completed: false,
+                itemName: 'Research',
                 unit: 'hour',
                 quantity: 2,
-                price: 40
+                price: 40,
+                total: 80
                 },
                 {
                 itemID: 'aaa1-2',
-                name: 'Writing',
+                completed: false,
+                itemName: 'Writing',
                 unit: 'hour',
                 quantity: 7,
-                price: 40
+                price: 40,
+                total: 280,
                 }
             ],
             'bbb1': [
                 {
                 itemID: 'bbb1-1',
-                name: 'Research',
+                completed: false,
+                itemName: 'Research',
                 unit: 'hour',
                 quantity: 2,
-                price: 40
+                price: 40,
+                total: 80
                 }
             ],
             'ccc1': [
                 {
                 itemID: 'ccc1-1',
-                name: 'Write an ad brief',
+                itemName: 'Write an ad brief',
+                completed: false,
                 unit: 'hour',
                 quantity: 8,
-                price: 40
+                price: 40,
+                total: 320
                 }
             ]
         })
@@ -153,19 +179,23 @@ describe('Methods that mutate Line Records object', () => {
             'aaa1': [
                 {
                 itemID: 'aaa1-1',
-                name: 'Research',
+                completed: false,
+                itemName: 'Research',
                 unit: 'hour',
                 quantity: 2,
-                price: 40
+                price: 40,
+                total: 80
                 }
             ],
             'bbb1': [
                 {
                 itemID: 'bbb1-1',
-                name: 'Research',
+                completed: false,
+                itemName: 'Research',
                 unit: 'hour',
                 quantity: 2,
-                price: 40
+                price: 40,
+                total: 80
                 }
             ]
         })

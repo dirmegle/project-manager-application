@@ -74,7 +74,7 @@ function getActualIncomeForDates() {
         <div class="container-image">
             <img :src="rocket" alt="income-illustration">
         </div>
-        
+
     </div>
     <AlertMessage v-if="!fromIsLessThanTo" color="amber" icon="$warning" title="'From' date is bigger than 'To' date" >Please select correct dates</AlertMessage>
 </template>
