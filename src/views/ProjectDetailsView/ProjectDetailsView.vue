@@ -42,7 +42,10 @@ const projectDescription = ref(project.projectDescription);
 
 const client = clientManager.getClientByID(clientID);
 
-const totalValueOfProject = lineRecorder.getTotalValueForProject(projectID);
+const totalValueOfProject = computed(() => {
+  return lineRecorder.getTotalValueForProject(projectID)
+})
+
 
 function handleProjectNameEdit(newName: string) {
   projectManager.editProjectName(newName, projectID);
@@ -58,7 +61,7 @@ function updateProjectDescription() {
 }
 
 function toggleProjectStatus() {
-  projectManager.toggleProjectCompletionStatus(projectID, totalValueOfProject);
+  projectManager.toggleProjectCompletionStatus(projectID, lineRecorder.getTotalValueForProject(projectID));
   lineRecorder.toggleCompletedStatus(projectID);
   isStatusConfirmationModalVisible.value = false;
 }

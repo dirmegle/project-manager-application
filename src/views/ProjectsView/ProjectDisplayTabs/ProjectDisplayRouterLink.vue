@@ -53,4 +53,8 @@ const clientName = clientManager.getClientNameByID(clientID);
   color: var(--text-color);
   font-size: 30px;
 }
+
+.heading-small {
+  width: 100%;
+}
 </style>

@@ -52,6 +52,8 @@ watch(
   }
 );
 
+
+
 function getActualIncomeForDates() {
   const completedProjects = projectManager.getFilteredProjectsByCompletionDate(
     fromDate.value,

@@ -23,6 +23,10 @@ const router = createRouter({
       path: '/clients',
       name: 'clients',
       component: () => import('../views/ClientsView/ClientsView.vue')
+    },
+    {
+      path: '/:catchAll(.*)*',
+      redirect: { name: 'dashboard' }
     }
     // {
     //   path: '/about',

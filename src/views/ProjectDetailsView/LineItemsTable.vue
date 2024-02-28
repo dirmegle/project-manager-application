@@ -31,8 +31,8 @@ const areAllFieldsFilled = computed(() => {
   return (
     name.value.trim() &&
     unit.value.trim() &&
-    quantity.value.toString().trim() &&
-    price.value.toString().trim()
+    quantity.value.toString() &&
+    price.value.toString()
   );
 });
 
@@ -40,9 +40,9 @@ function handleItemAddition() {
   const newItem = {
     itemName: name.value.trim(),
     unit: unit.value.trim(),
-    quantity: parseFloat(quantity.value.trim()),
-    price: parseFloat(price.value.trim()),
-    total: parseFloat(total.value.trim())
+    quantity: parseFloat(quantity.value),
+    price: parseFloat(price.value),
+    total: parseFloat(total.value)
   };
 
   lineRecorder.addNewRecordForProject(newItem, props.projectID);
@@ -83,13 +83,13 @@ function deleteLineItem(itemID: string) {
           ><input
             placeholder="Quantity"
             class="table-input container"
-            type="text"
+            type="number"
             v-model="quantity"
         /></label>
       </div>
       <div class="grid-item">
         <label
-          ><input placeholder="Price" class="table-input container" type="text" v-model="price"
+          ><input placeholder="Price" class="table-input container" type="number" v-model="price"
         /></label>
       </div>
       <div class="grid-item">
@@ -139,11 +139,11 @@ function deleteLineItem(itemID: string) {
           ><input
             placeholder="Quantity"
             class="table-input container"
-            type="text"
+            type="number"
             v-model="quantity"
         /></label>
         <label
-          ><input placeholder="Price" class="table-input container" type="text" v-model="price"
+          ><input placeholder="Price" class="table-input container" type="number" v-model="price"
         /></label>
       </div>
       <div>
